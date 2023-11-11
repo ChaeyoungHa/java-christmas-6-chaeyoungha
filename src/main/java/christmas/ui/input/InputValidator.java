@@ -14,7 +14,7 @@ public class InputValidator {
     private static final int DEFAULT_YEAR = 2023;
     private static final int DEFAULT_MONTH = 12;
     private static final String DEFAULT_SEPARATOR = ",";
-    private static final String MENU_REGEX = ".+-\\d+";
+    private static final String MENU_REGEX = "[가-힣]+-\\d+";
 
     public static boolean isValidDateInput(String dateInput) {
         try {
