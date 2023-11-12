@@ -40,7 +40,15 @@ public class Parser {
                 .map(menuItem -> menuItem.split(MENU_ITEM_DELIMITER))
                 .collect(Collectors.toMap(
                         parts -> Menu.of(parts[0]),
-                        parts -> Integer.parseInt(parts[1]),
+                        parts -> {
+                            int count = Integer.parseInt(parts[1]);
+
+                            if(count < 1) {
+                                throw new IllegalArgumentException();
+                            }
+
+                            return count;
+                        },
                         (existing, replacement) -> {
                             throw new IllegalArgumentException();
                         },
