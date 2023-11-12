@@ -37,7 +37,15 @@ public class Formatter {
 
     public static List<String> formatDiscountEvents(HashMap<DiscountEventImpl, Integer> discountEvents) {
         return discountEvents.entrySet().stream()
-                .map(entry -> String.format(DISCOUNT_EVENT_FORMAT, entry.getKey().getName(), MINUS + formatPrice(entry.getValue())))
+                .map(entry -> String.format(DISCOUNT_EVENT_FORMAT, entry.getKey().getName(), formatDiscountAmount(entry.getValue())))
                 .collect(Collectors.toList());
+    }
+
+    public static String formatDiscountAmount(int discountAmount) {
+        if(discountAmount > 0) {
+            return MINUS + formatPrice(discountAmount);
+        }
+
+        return formatPrice(discountAmount);
     }
 }

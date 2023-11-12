@@ -50,7 +50,7 @@ public class Reservation {
                 .sum();
     }
 
-    public int calculateAllDiscountAmount() {
+    public int calculateDiscountAmountSum() {
         return discountEvents.values().stream().mapToInt(value -> value).sum();
     }
 }

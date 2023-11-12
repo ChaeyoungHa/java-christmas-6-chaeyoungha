@@ -51,6 +51,7 @@ public class EventPlanner {
         calculateAllDiscount();
         printGiveaway();
         printDiscountEvents();
+        printDiscountAmountSum();
     }
 
     private void printStartPreview() {
@@ -83,7 +84,7 @@ public class EventPlanner {
     }
 
     private void printDiscountEvents() {
-        int discountAmountSum = reservation.calculateAllDiscountAmount();
+        int discountAmountSum = reservation.calculateDiscountAmountSum();
 
         OutputView.printDiscountEvents(getDiscountEvents(discountAmountSum));
     }
@@ -94,5 +95,11 @@ public class EventPlanner {
         }
 
         return Formatter.formatDiscountEvents(reservation.getDiscountEventsExceptNoDiscount());
+    }
+
+    private void printDiscountAmountSum() {
+        String discountAmountSum = Formatter.formatDiscountAmount(reservation.calculateDiscountAmountSum());
+
+        OutputView.printDiscountAmountSum(discountAmountSum);
     }
 }
