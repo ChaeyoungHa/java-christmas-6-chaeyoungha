@@ -10,6 +10,7 @@ public class OutputView {
     private static final String THIS_IS_GIVEAWAY = "<증정 메뉴>";
     private static final String THESE_ARE_DISCOUNT_EVENTS = "<혜택 내역>";
     private static final String THIS_IS_DISCOUNT_AMOUNT_SUM = "<총혜택 금액>";
+    private static final String THIS_IS_PRICE_AFTER_DISCOUNT = "<할인 후 예상 결제 금액>";
 
     public static void print(String message) {
         System.out.println(message);
@@ -51,6 +52,12 @@ public class OutputView {
     public static void printDiscountAmountSum(String discountAmountSum) {
         System.out.println(THIS_IS_DISCOUNT_AMOUNT_SUM);
         System.out.println(discountAmountSum);
+        System.out.println();
+    }
+
+    public static void printPriceAfterDiscount(String price) {
+        System.out.println(THIS_IS_PRICE_AFTER_DISCOUNT);
+        System.out.println(price);
         System.out.println();
     }
 }

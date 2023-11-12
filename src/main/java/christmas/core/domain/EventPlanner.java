@@ -52,6 +52,7 @@ public class EventPlanner {
         printGiveaway();
         printDiscountEvents();
         printDiscountAmountSum();
+        printPriceAfterDiscount();
     }
 
     private void printStartPreview() {
@@ -70,7 +71,7 @@ public class EventPlanner {
     }
 
     private void printGiveaway() {
-        int discountAmount = reservation.getDiscountEvents().get(DiscountEventImpl.GIVEAWAY_DISCOUNT);
+        int discountAmount = reservation.calculateGiveawayDiscount();
 
         OutputView.printGiveaway(getGiveaway(discountAmount));
     }
@@ -101,5 +102,19 @@ public class EventPlanner {
         String discountAmountSum = Formatter.formatDiscountAmount(reservation.calculateDiscountAmountSum());
 
         OutputView.printDiscountAmountSum(discountAmountSum);
+    }
+
+    private void printPriceAfterDiscount() {
+        String priceAfterDiscount = Formatter.formatPrice(calculatePriceAfterDiscount());
+
+        OutputView.printPriceAfterDiscount(priceAfterDiscount);
+    }
+
+    private int calculatePriceAfterDiscount() {
+        int priceBeforeDiscount = reservation.calculatePriceBeforeDiscount();
+        int discountAmountSum = reservation.calculateDiscountAmountSum();
+        int giveawayDiscount = reservation.calculateGiveawayDiscount();
+
+        return priceBeforeDiscount - discountAmountSum + giveawayDiscount;
     }
 }

@@ -50,6 +50,10 @@ public class Reservation {
                 .sum();
     }
 
+    public int calculateGiveawayDiscount() {
+        return discountEvents.get(DiscountEventImpl.GIVEAWAY_DISCOUNT);
+    }
+
     public int calculateDiscountAmountSum() {
         return discountEvents.values().stream().mapToInt(value -> value).sum();
     }
