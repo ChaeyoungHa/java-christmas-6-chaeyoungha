@@ -15,4 +15,12 @@ public class Reservation {
         this.discountEvents = new HashMap<>();
         this.eventBadge = EventBadge.NONE;
     }
+
+    public LocalDate getDate() {
+        return date;
+    }
+
+    public HashMap<Menu, Integer> getMenus() {
+        return menus;
+    }
 }

@@ -18,4 +18,8 @@ public class ReserveService {
     public void reserve(LocalDate date, HashMap<Menu, Integer> menus) {
         eventPlanner.makeReservation(date, menus);
     }
+
+    public void showReservation() {
+        eventPlanner.printReservationPreview();
+    }
 }

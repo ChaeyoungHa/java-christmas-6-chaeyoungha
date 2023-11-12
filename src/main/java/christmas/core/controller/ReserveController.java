@@ -62,6 +62,6 @@ public class ReserveController {
     }
 
     private void showReservationDetails() {
-        // reserveService.showReservation();
+         reserveService.showReservation();
     }
 }

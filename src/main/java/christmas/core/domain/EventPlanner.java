@@ -15,4 +15,20 @@ public class EventPlanner {
     public void makeReservation(LocalDate date, HashMap<Menu, Integer> menus) {
         this.reservation = new Reservation(date, menus);
     }
+
+    public void printReservationPreview() {
+        printStartPreview();
+
+        printMenus();
+    }
+
+    private void printStartPreview() {
+        String date = Formatter.formatDate(reservation.getDate());
+        OutputView.printStartReservationPreview(date);
+    }
+
+    private void printMenus() {
+        List<String> menus = Formatter.formatMenus(reservation.getMenus());
+        OutputView.printMenus(menus);
+    }
 }
