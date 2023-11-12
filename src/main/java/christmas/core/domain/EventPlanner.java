@@ -16,10 +16,18 @@ public class EventPlanner {
         this.reservation = new Reservation(date, menus);
     }
 
+    private int calculatePriceBeforeDiscount() {
+        return reservation.getMenus().entrySet().stream()
+                .mapToInt(entry -> entry.getKey().getPrice() * entry.getValue())
+                .sum();
+    }
+
     public void printReservationPreview() {
         printStartPreview();
 
         printMenus();
+
+        printPriceBeforeDiscount();
     }
 
     private void printStartPreview() {
@@ -30,5 +38,10 @@ public class EventPlanner {
     private void printMenus() {
         List<String> menus = Formatter.formatMenus(reservation.getMenus());
         OutputView.printMenus(menus);
+    }
+
+    private void printPriceBeforeDiscount() {
+        String priceBeforeDiscount = Formatter.formatPrice(calculatePriceBeforeDiscount());
+        OutputView.printPriceBeforeDiscount(priceBeforeDiscount);
     }
 }
