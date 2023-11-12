@@ -1,9 +1,13 @@
 package christmas.core.controller;
 
+import christmas.core.domain.Menu;
 import christmas.core.service.ReserveService;
-import christmas.ui.input.InputValidator;
 import christmas.ui.input.InputView;
 import christmas.ui.output.OutputView;
+import christmas.util.Parser;
+
+import java.time.LocalDate;
+import java.util.HashMap;
 
 public class ReserveController {
     private final ReserveService reserveService;
@@ -26,8 +30,8 @@ public class ReserveController {
 
     private void reserve() {
         try {
-            String date = readValidDate();
-            String menus = readValidMenus();
+            LocalDate date = Parser.parseDateInput(InputView.readDate());
+            HashMap<Menu, Integer> menus = Parser.parseMenuInput(InputView.readMenus());
 
             // reserveService.reserve(date, menus);
         } catch (IllegalArgumentException e) {
@@ -35,26 +39,6 @@ public class ReserveController {
 
             reserve();
         }
-    }
-
-    private String readValidDate() {
-        String dateInput;
-
-        do {
-            dateInput = InputView.readDate();
-        } while (!InputValidator.isValidDateInput(dateInput));
-
-        return dateInput;
-    }
-
-    private String readValidMenus() {
-        String menuInput;
-
-        do {
-            menuInput = InputView.readMenus();
-        } while (!InputValidator.isValidMenuInput(menuInput));
-
-        return menuInput;
     }
 
     private void showReservationDetails() {
