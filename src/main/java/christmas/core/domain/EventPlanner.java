@@ -11,6 +11,8 @@ import java.util.stream.Collectors;
 
 public class EventPlanner {
     private static final String GIVEAWAY = "샴페인 1개";
+    private static final String NO_ITEM = "없음";
+
     private Reservation reservation;
 
     public EventPlanner() { }
@@ -69,21 +71,28 @@ public class EventPlanner {
     private void printGiveaway() {
         int discountAmount = reservation.getDiscountEvents().get(DiscountEventImpl.GIVEAWAY_DISCOUNT);
 
+        OutputView.printGiveaway(getGiveaway(discountAmount));
+    }
+
+    private String getGiveaway(int discountAmount) {
         if(discountAmount == 0) {
-            OutputView.printNoItem();
+            return NO_ITEM;
         }
 
-        OutputView.printGiveaway(GIVEAWAY);
+        return GIVEAWAY;
     }
 
     private void printDiscountEvents() {
         int discountAmountSum = reservation.calculateAllDiscountAmount();
 
+        OutputView.printDiscountEvents(getDiscountEvents(discountAmountSum));
+    }
+
+    private List<String> getDiscountEvents(int discountAmountSum) {
         if(discountAmountSum == 0) {
-            OutputView.printNoItem();
+            return List.of(NO_ITEM);
         }
 
-        List<String> discountEvents = Formatter.formatDiscountEvents(reservation.getDiscountEventsExceptNoDiscount());
-        OutputView.printDiscountEvents(discountEvents);
+        return Formatter.formatDiscountEvents(reservation.getDiscountEventsExceptNoDiscount());
     }
 }

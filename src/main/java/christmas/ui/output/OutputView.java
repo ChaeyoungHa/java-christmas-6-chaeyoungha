@@ -9,7 +9,6 @@ public class OutputView {
     private static final String THIS_IS_PRICE_BEFORE_DISCOUNT = "<할인 전 총주문 금액>";
     private static final String THIS_IS_GIVEAWAY = "<증정 메뉴>";
     private static final String THESE_ARE_DISCOUNT_EVENTS = "<혜택 내역>";
-    private static final String NO_ITEM = "없음";
 
     public static void print(String message) {
         System.out.println(message);
@@ -46,9 +45,5 @@ public class OutputView {
         System.out.println(THESE_ARE_DISCOUNT_EVENTS);
         discountEvents.forEach(System.out::println);
         System.out.println();
-    }
-
-    public static void printNoItem() {
-        System.out.println(NO_ITEM);
     }
 }
