@@ -4,8 +4,10 @@ import christmas.ui.output.OutputView;
 import christmas.util.Formatter;
 
 import java.time.LocalDate;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class EventPlanner {
     private Reservation reservation;
@@ -16,10 +18,24 @@ public class EventPlanner {
         this.reservation = new Reservation(date, menus);
     }
 
-    private int calculatePriceBeforeDiscount() {
-        return reservation.getMenus().entrySet().stream()
-                .mapToInt(entry -> entry.getKey().getPrice() * entry.getValue())
-                .sum();
+    private void calculateAllDiscount() {
+        HashMap<DiscountEventImpl, Integer> discountEvents = Arrays.stream(DiscountEventImpl.values())
+                .collect(Collectors.toMap(
+                        discountEvent -> discountEvent,
+                        this::calculateDiscoutForEvent,
+                        (existing, replacement) -> existing,
+                        HashMap::new
+                ));
+
+        reservation.setDiscountEvents(discountEvents);
+    }
+
+    public int calculateDiscoutForEvent(DiscountEventImpl discountEvent) {
+        if(discountEvent.getTargetDates().contains(reservation.getDate())) {
+            return discountEvent.discountAmount(reservation);
+        }
+
+        return 0;
     }
 
     public void printReservationPreview() {
@@ -41,7 +57,7 @@ public class EventPlanner {
     }
 
     private void printPriceBeforeDiscount() {
-        String priceBeforeDiscount = Formatter.formatPrice(calculatePriceBeforeDiscount());
+        String priceBeforeDiscount = Formatter.formatPrice(reservation.calculatePriceBeforeDiscount());
         OutputView.printPriceBeforeDiscount(priceBeforeDiscount);
     }
 }

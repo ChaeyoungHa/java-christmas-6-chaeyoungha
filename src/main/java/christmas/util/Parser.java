@@ -12,15 +12,13 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class Parser {
-    private static final int DEFAULT_YEAR = 2023;
-    private static final int DEFAULT_MONTH = 12;
     private static final String MENU_INPUT_DELIMITER = ",";
     private static final String MENU_ITEM_DELIMITER = "-";
 
     public static LocalDate parseDateInput(String dateInput) {
         try {
             int date = Integer.parseInt(dateInput);
-            return LocalDate.of(DEFAULT_YEAR, DEFAULT_MONTH, date);
+            return Calendar.generateDate(date);
         } catch (NumberFormatException | DateTimeException e) {
             throw ReservationException.of(ErrorType.INVALID_DATE_INPUT);
         }
