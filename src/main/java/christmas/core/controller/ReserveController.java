@@ -19,6 +19,8 @@ public class ReserveController {
     public void run() {
         hello();
 
+        guide();
+
         reserve();
 
         showReservationDetails();
@@ -26,6 +28,10 @@ public class ReserveController {
 
     private void hello() {
         OutputView.printHello();
+    }
+
+    private void guide() {
+        OutputView.printEventGuide();
     }
 
     private void reserve() {
