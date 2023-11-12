@@ -53,6 +53,9 @@ public class EventPlanner {
         printDiscountEvents();
         printDiscountAmountSum();
         printPriceAfterDiscount();
+
+        giveEventBadge();
+        printEventBade();
     }
 
     private void printStartPreview() {
@@ -116,5 +119,15 @@ public class EventPlanner {
         int giveawayDiscount = reservation.calculateGiveawayDiscount();
 
         return priceBeforeDiscount - discountAmountSum + giveawayDiscount;
+    }
+
+    private void giveEventBadge() {
+        int discountAmountSum = reservation.calculateDiscountAmountSum();
+
+        reservation.setEventBadge(EventBadge.of(discountAmountSum));
+    }
+
+    private void printEventBade() {
+        OutputView.printEventBadge(reservation.getEventBadge().getName());
     }
 }

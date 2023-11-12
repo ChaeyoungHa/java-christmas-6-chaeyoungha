@@ -29,9 +29,16 @@ public class Reservation {
     public HashMap<DiscountEventImpl, Integer> getDiscountEvents() {
         return discountEvents;
     }
+    public EventBadge getEventBadge() {
+        return eventBadge;
+    }
 
     public void setDiscountEvents(HashMap<DiscountEventImpl, Integer> discountEvents) {
         this.discountEvents = discountEvents;
+    }
+
+    public void setEventBadge(EventBadge eventBadge) {
+        this.eventBadge = eventBadge;
     }
 
     public HashMap<DiscountEventImpl, Integer> getDiscountEventsExceptNoDiscount() {
