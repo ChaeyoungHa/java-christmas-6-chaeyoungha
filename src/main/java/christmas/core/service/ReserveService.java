@@ -2,8 +2,6 @@ package christmas.core.service;
 
 import christmas.core.domain.EventPlanner;
 import christmas.core.domain.Menu;
-import christmas.core.domain.Reservation;
-import christmas.ui.output.OutputView;
 
 import java.time.LocalDate;
 import java.util.HashMap;
