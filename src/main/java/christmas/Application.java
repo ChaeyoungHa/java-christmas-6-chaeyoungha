@@ -1,7 +1,6 @@
 package christmas;
 
 import christmas.core.controller.ReserveController;
-import christmas.core.domain.Reservation;
 import christmas.core.service.ReserveService;
 
 public class Application {
