@@ -10,6 +10,8 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class EventPlanner {
+    private static final String GIVEAWAY = "샴페인 1개";
+    private static final String NO_DISCOUNT = "없음";
     private Reservation reservation;
 
     public EventPlanner() { }
@@ -30,7 +32,7 @@ public class EventPlanner {
         reservation.setDiscountEvents(discountEvents);
     }
 
-    public int calculateDiscoutForEvent(DiscountEventImpl discountEvent) {
+    private int calculateDiscoutForEvent(DiscountEventImpl discountEvent) {
         if(discountEvent.getTargetDates().contains(reservation.getDate())) {
             return discountEvent.discountAmount(reservation);
         }
@@ -44,6 +46,9 @@ public class EventPlanner {
         printMenus();
 
         printPriceBeforeDiscount();
+
+        calculateAllDiscount();
+        printGiveaway();
     }
 
     private void printStartPreview() {
@@ -59,5 +64,16 @@ public class EventPlanner {
     private void printPriceBeforeDiscount() {
         String priceBeforeDiscount = Formatter.formatPrice(reservation.calculatePriceBeforeDiscount());
         OutputView.printPriceBeforeDiscount(priceBeforeDiscount);
+    }
+
+    private void printGiveaway() {
+        String giveaway = NO_DISCOUNT;
+
+        int discountAmount = reservation.getDiscountEvents().get(DiscountEventImpl.GIVEAWAY_DISCOUNT);
+        if(discountAmount != 0) {
+            giveaway = GIVEAWAY;
+        }
+
+        OutputView.printGiveaway(giveaway);
     }
 }
