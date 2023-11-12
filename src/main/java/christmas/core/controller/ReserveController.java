@@ -29,15 +29,35 @@ public class ReserveController {
     }
 
     private void reserve() {
-        try {
-            LocalDate date = Parser.parseDateInput(InputView.readDate());
-            HashMap<Menu, Integer> menus = Parser.parseMenuInput(InputView.readMenus());
+        LocalDate date = readValidDate();
+        HashMap<Menu, Integer> menus = readValidMenus();
 
-            // reserveService.reserve(date, menus);
+        try {
+            reserveService.reserve(date, menus);
         } catch (IllegalArgumentException e) {
             OutputView.print(e.getMessage());
 
             reserve();
+        }
+    }
+
+    private LocalDate readValidDate() {
+        try {
+            return Parser.parseDateInput(InputView.readDate());
+        } catch (IllegalArgumentException e) {
+            OutputView.print(e.getMessage());
+
+            return readValidDate();
+        }
+    }
+
+    private HashMap<Menu, Integer> readValidMenus() {
+        try {
+            return Parser.parseMenuInput(InputView.readMenus());
+        } catch (IllegalArgumentException e) {
+            OutputView.print(e.getMessage());
+
+            return readValidMenus();
         }
     }
 

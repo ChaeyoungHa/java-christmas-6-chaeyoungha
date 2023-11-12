@@ -6,9 +6,7 @@ import christmas.core.service.ReserveService;
 
 public class Application {
     public static void main(String[] args) {
-        Reservation reservation = new Reservation();
-
-        ReserveService reserveService = new ReserveService(reservation);
+        ReserveService reserveService = new ReserveService();
 
         ReserveController reserveController = new ReserveController(reserveService);
 

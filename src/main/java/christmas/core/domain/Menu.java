@@ -1,6 +1,10 @@
 package christmas.core.domain;
 
+import christmas.exception.ErrorType;
+import christmas.exception.ReservationException;
+
 import java.util.Arrays;
+import java.util.Objects;
 
 public enum Menu {
     BUTTON_MUSHROOM_SOUP("양송이수프", MenuCategory.APPETIZER, 6000),
@@ -28,8 +32,8 @@ public enum Menu {
 
     public static Menu of(String name) {
         return Arrays.stream(Menu.values())
-                .filter(menu -> menu.name == name)
+                .filter(menu -> Objects.equals(menu.name, name))
                 .findFirst()
-                .orElse(null);
+                .orElseThrow(() -> new ReservationException(ErrorType.INVALID_MENU_INPUT));
     }
 }
