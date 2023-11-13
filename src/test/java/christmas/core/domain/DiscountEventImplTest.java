@@ -7,7 +7,7 @@ import java.time.LocalDate;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class DiscountEventImplTest {
+class DiscountEventImplTest {
     @ParameterizedTest
     @ValueSource(ints = {1, 11, 21, 25})
     void christmasDdayDiscountContainsDateOf(int day) {
