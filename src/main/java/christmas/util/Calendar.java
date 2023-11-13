@@ -45,8 +45,7 @@ public class Calendar {
     }
 
     private static List<LocalDate> generateDates(int start, int end, List<DayOfWeek> dayOfWeek) {
-        return generateDates(start, end)
-                .stream()
+        return generateDates(start, end).stream()
                 .filter(date -> dayOfWeek.contains(date.getDayOfWeek()))
                 .collect(Collectors.toList());
     }
