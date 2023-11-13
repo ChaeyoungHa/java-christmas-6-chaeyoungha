@@ -32,10 +32,6 @@ public class Reservation {
         this.eventBadge = EventBadge.NONE;
     }
 
-    public LocalDate getDate() {
-        return date;
-    }
-
     private Map<DiscountEventImpl, Integer> filterDiscountEvents() {
         return discountEvents.entrySet().stream()
                 .filter(entry -> entry.getValue() != 0)
@@ -136,7 +132,7 @@ public class Reservation {
     }
 
     private int calculateDiscountForEvent(DiscountEventImpl discountEvent) {
-        if(discountEvent.containsDateOf(this) && calculatePriceBeforeDiscount() > 10000) {
+        if(discountEvent.containsDateOf(date) && calculatePriceBeforeDiscount() > 10000) {
             return discountEvent.calculateDiscountAmount(this);
         }
 
