@@ -22,7 +22,7 @@ public class EventPlanner {
         HashMap<DiscountEventImpl, Integer> discountEvents = Arrays.stream(DiscountEventImpl.values())
                 .collect(Collectors.toMap(
                         discountEvent -> discountEvent,
-                        this::calculateDiscoutForEvent,
+                        this::calculateDiscountForEvent,
                         (existing, replacement) -> existing,
                         HashMap::new
                 ));
@@ -30,7 +30,7 @@ public class EventPlanner {
         reservation.setDiscountEvents(discountEvents);
     }
 
-    private int calculateDiscoutForEvent(DiscountEventImpl discountEvent) {
+    private int calculateDiscountForEvent(DiscountEventImpl discountEvent) {
         if(discountEvent.containsDateOf(reservation)) {
             return discountEvent.calculateDiscountAmount(reservation);
         }
