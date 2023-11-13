@@ -8,6 +8,7 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.function.BinaryOperator;
 import java.util.stream.Collectors;
 
 public class Reservation {
@@ -36,7 +37,7 @@ public class Reservation {
                 .collect(Collectors.toMap(
                         Map.Entry::getKey,
                         Map.Entry::getValue,
-                        (existing, replacement) -> existing));
+                        handleDuplicateMenusException));
     }
 
     public int calculatePriceBeforeDiscount() {
@@ -115,7 +116,7 @@ public class Reservation {
                 .collect(Collectors.toMap(
                         Map.Entry::getKey,
                         Map.Entry::getValue,
-                        (existing, replacement) -> existing
+                        handleDuplicateMenusException
                 ));
     }
 
@@ -124,7 +125,7 @@ public class Reservation {
                 .collect(Collectors.toMap(
                         discountEvent -> discountEvent,
                         this::calculateDiscountForEvent,
-                        (existing, replacement) -> existing,
+                        handleDuplicateMenusException,
                         HashMap::new
                 ));
     }
@@ -136,4 +137,8 @@ public class Reservation {
 
         return 0;
     }
+
+    public static final BinaryOperator<Integer> handleDuplicateMenusException = (oldValue, newValue) -> {
+        throw new IllegalArgumentException();
+    };
 }

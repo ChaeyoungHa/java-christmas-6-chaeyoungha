@@ -49,10 +49,8 @@ public class Parser {
                             }
 
                             return count;
-                        },
-                        (existing, replacement) -> {
-                            throw new IllegalArgumentException();
-                        })
+                        }
+                        )
                 );
     }
 }
