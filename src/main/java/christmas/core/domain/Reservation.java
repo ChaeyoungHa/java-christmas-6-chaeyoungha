@@ -1,5 +1,6 @@
 package christmas.core.domain;
 
+import christmas.util.Calendar;
 import christmas.util.Formatter;
 
 import java.time.LocalDate;
@@ -112,5 +113,9 @@ public class Reservation {
 
     private void giveEventBadge() {
         eventBadge = EventBadge.of(calculateDiscountAmountSum());
+    }
+
+    public int calculateDifferenceFromFirstDay() {
+        return date.getDayOfMonth() - Calendar.FIRST_DAY;
     }
 }

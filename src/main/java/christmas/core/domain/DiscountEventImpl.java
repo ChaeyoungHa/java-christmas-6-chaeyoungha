@@ -10,7 +10,7 @@ public enum DiscountEventImpl implements DiscountEvent {
     CHRISTMAS_DDAY_DISCOUNT("크리스마스 디데이 할인", Calendar.generateDatesUntilChristmas()) {
         @Override
         public int calculateDiscountAmount(Reservation reservation) {
-            return 1000 + (reservation.getDate().getDayOfMonth() - 1) * 100;
+            return 1000 + reservation.calculateDifferenceFromFirstDay() * 100;
         }
     },
     WEEKDAY_DISCOUNT("평일 할인",
