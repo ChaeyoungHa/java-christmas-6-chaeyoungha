@@ -48,4 +48,8 @@ public enum Menu {
                 .findFirst()
                 .orElseThrow(() -> new ReservationException(ErrorType.INVALID_MENU_INPUT));
     }
+
+    public boolean hasCategoryOf(MenuCategory category) {
+        return menuCategory == category;
+    }
 }

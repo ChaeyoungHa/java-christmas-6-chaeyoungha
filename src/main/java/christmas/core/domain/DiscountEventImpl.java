@@ -17,18 +17,16 @@ public enum DiscountEventImpl implements DiscountEvent {
             Calendar.generateAllDatesWithDayOfWeek(List.of(DayOfWeek.SUNDAY, DayOfWeek.MONDAY, DayOfWeek.TUESDAY, DayOfWeek.WEDNESDAY, DayOfWeek.THURSDAY))) {
         @Override
         public int calculateDiscountAmount(Reservation reservation) {
-            return reservation.getMenus().entrySet().stream()
-                    .filter(entry -> entry.getKey().getMenuCategory().equals(MenuCategory.DESSERT))
-                    .mapToInt(entry -> entry.getValue() * 2023)
+            return reservation.filterMenusByCategory(MenuCategory.DESSERT).values().stream()
+                    .mapToInt(count -> count * 2023)
                     .sum();
         }
     },
     WEEKEND_DISCOUNT("주말 할인", Calendar.generateAllDatesWithDayOfWeek(List.of(DayOfWeek.FRIDAY, DayOfWeek.SATURDAY))) {
         @Override
         public int calculateDiscountAmount(Reservation reservation) {
-            return reservation.getMenus().entrySet().stream()
-                    .filter(entry -> entry.getKey().getMenuCategory().equals(MenuCategory.MAIN))
-                    .mapToInt(entry -> entry.getValue() * 2023)
+            return reservation.filterMenusByCategory(MenuCategory.MAIN).values().stream()
+                    .mapToInt(count -> count * 2023)
                     .sum();
         }
     },

@@ -118,4 +118,16 @@ public class Reservation {
     public int calculateDifferenceFromFirstDay() {
         return date.getDayOfMonth() - Calendar.FIRST_DAY;
     }
+
+    public Map<Menu, Integer> filterMenusByCategory(MenuCategory category) {
+        return menus.entrySet().stream()
+                .filter(entry -> entry.getKey().hasCategoryOf(category))
+                .collect(Collectors.toMap(
+                        Map.Entry::getKey,
+                        Map.Entry::getValue,
+                        (existing, replacement) -> existing
+                ));
+    }
+
+
 }
