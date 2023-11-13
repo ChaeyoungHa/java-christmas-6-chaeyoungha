@@ -29,10 +29,6 @@ public class Reservation {
         return date;
     }
 
-    public HashMap<Menu, Integer> getMenus() {
-        return menus;
-    }
-
     public void setDiscountEvents(HashMap<DiscountEventImpl, Integer> discountEvents) {
         this.discountEvents = discountEvents;
     }
