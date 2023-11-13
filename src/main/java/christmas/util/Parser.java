@@ -10,6 +10,7 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.function.BinaryOperator;
 import java.util.stream.Collectors;
 
 public class Parser {
@@ -44,13 +45,22 @@ public class Parser {
                         parts -> {
                             int count = Integer.parseInt(parts[1]);
 
-                            if(count < 1) {
-                                throw new IllegalArgumentException();
-                            }
+                            validateMenuCount(count);
 
                             return count;
-                        }
+                        },
+                        validateMenuName
                         )
                 );
     }
+
+    private static void validateMenuCount(int count) {
+        if (count < 1) {
+            throw new IllegalArgumentException();
+        }
+    }
+    
+    private static final BinaryOperator<Integer> validateMenuName = (oldValue, newValue) -> {
+        throw new IllegalArgumentException();
+    };
 }
