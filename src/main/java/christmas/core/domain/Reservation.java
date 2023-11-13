@@ -123,13 +123,15 @@ public class Reservation {
                 ));
     }
 
-    public void calculateAllDiscount() {
-        discountEvents = Arrays.stream(DiscountEventImpl.values())
+    public void applyAllDiscount() {
+        discountEvents = new HashMap<>(calculateAllDiscount());
+    }
+
+    private Map<DiscountEventImpl, Integer> calculateAllDiscount() {
+        return Arrays.stream(DiscountEventImpl.values())
                 .collect(Collectors.toMap(
                         discountEvent -> discountEvent,
-                        this::calculateDiscountForEvent,
-                        (existing, replacement) -> existing,
-                        HashMap::new
+                        this::calculateDiscountForEvent
                 ));
     }
 

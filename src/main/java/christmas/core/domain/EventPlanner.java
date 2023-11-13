@@ -17,7 +17,7 @@ public class EventPlanner {
     }
 
     public void printReservationDiscountDetails() {
-        reservation.calculateAllDiscount();
+        reservation.applyAllDiscount();
 
         printGiveaway();
         printDiscountEvents();
