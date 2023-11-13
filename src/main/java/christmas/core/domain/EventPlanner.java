@@ -3,10 +3,8 @@ package christmas.core.domain;
 import christmas.ui.output.OutputView;
 
 import java.time.LocalDate;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class EventPlanner {
 
@@ -18,40 +16,21 @@ public class EventPlanner {
         this.reservation = new Reservation(date, menus);
     }
 
-    private void calculateAllDiscount() {
-        HashMap<DiscountEventImpl, Integer> discountEvents = Arrays.stream(DiscountEventImpl.values())
-                .collect(Collectors.toMap(
-                        discountEvent -> discountEvent,
-                        this::calculateDiscountForEvent,
-                        (existing, replacement) -> existing,
-                        HashMap::new
-                ));
+    public void printReservationDiscountDetails() {
+        reservation.calculateAllDiscount();
 
-        reservation.setDiscountEvents(discountEvents);
+        printGiveaway();
+        printDiscountEvents();
+        printDiscountAmountSum();
+        printPriceAfterDiscount();
     }
 
-    private int calculateDiscountForEvent(DiscountEventImpl discountEvent) {
-        if(discountEvent.containsDateOf(reservation)) {
-            return discountEvent.calculateDiscountAmount(reservation);
-        }
-
-        return 0;
-    }
-
-    public void printReservationPreview() {
+    public void printReservationBasicInformation() {
         printStartPreview();
 
         printMenus();
 
         printPriceBeforeDiscount();
-
-        calculateAllDiscount();
-        printGiveaway();
-        printDiscountEvents();
-        printDiscountAmountSum();
-        printPriceAfterDiscount();
-
-        printEventBade();
     }
 
     private void printStartPreview() {
@@ -96,8 +75,10 @@ public class EventPlanner {
         OutputView.printPriceAfterDiscount(priceAfterDiscount);
     }
 
-    private void printEventBade() {
-        String eventBadge = reservation.formatEventBadge();
+    public void printEventBadge() {
+        reservation.giveEventBadge();
+
+        String eventBadge = reservation.getEventBadgeName();
 
         OutputView.printEventBadge(eventBadge);
     }

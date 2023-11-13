@@ -23,7 +23,7 @@ public class ReserveController {
 
         reserve();
 
-        showReservationDetails();
+        showReservationPreview();
     }
 
     private void hello() {
@@ -67,7 +67,7 @@ public class ReserveController {
         }
     }
 
-    private void showReservationDetails() {
-         reserveService.showReservation();
+    private void showReservationPreview() {
+         reserveService.showReservationPreview();
     }
 }

@@ -4,6 +4,7 @@ import christmas.util.Calendar;
 import christmas.util.Formatter;
 
 import java.time.LocalDate;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -13,8 +14,8 @@ public class Reservation {
     private static final String GIVEAWAY = "샴페인 1개";
     private static final String NO_ITEM = "없음";
 
-    private LocalDate date;
-    private HashMap<Menu, Integer> menus;
+    private final LocalDate date;
+    private final HashMap<Menu, Integer> menus;
     private HashMap<DiscountEventImpl, Integer> discountEvents;
     private EventBadge eventBadge;
 
@@ -27,10 +28,6 @@ public class Reservation {
 
     public LocalDate getDate() {
         return date;
-    }
-
-    public void setDiscountEvents(HashMap<DiscountEventImpl, Integer> discountEvents) {
-        this.discountEvents = discountEvents;
     }
 
     private HashMap<DiscountEventImpl, Integer> filterDiscountEvents() {
@@ -101,13 +98,11 @@ public class Reservation {
         return priceBeforeDiscount - discountAmountSum + giveawayDiscount;
     }
 
-    public String formatEventBadge() {
-        giveEventBadge();
-
+    public String getEventBadgeName() {
         return eventBadge.getName();
     }
 
-    private void giveEventBadge() {
+    public void giveEventBadge() {
         eventBadge = EventBadge.of(calculateDiscountAmountSum());
     }
 
@@ -125,5 +120,21 @@ public class Reservation {
                 ));
     }
 
+    public void calculateAllDiscount() {
+        discountEvents = Arrays.stream(DiscountEventImpl.values())
+                .collect(Collectors.toMap(
+                        discountEvent -> discountEvent,
+                        this::calculateDiscountForEvent,
+                        (existing, replacement) -> existing,
+                        HashMap::new
+                ));
+    }
 
+    private int calculateDiscountForEvent(DiscountEventImpl discountEvent) {
+        if(discountEvent.containsDateOf(this)) {
+            return discountEvent.calculateDiscountAmount(this);
+        }
+
+        return 0;
+    }
 }

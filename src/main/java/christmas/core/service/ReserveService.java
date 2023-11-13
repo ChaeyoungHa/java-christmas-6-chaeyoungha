@@ -7,7 +7,7 @@ import java.time.LocalDate;
 import java.util.HashMap;
 
 public class ReserveService {
-    private EventPlanner eventPlanner;
+    private final EventPlanner eventPlanner;
 
     public ReserveService() {
         this.eventPlanner = new EventPlanner();
@@ -17,7 +17,11 @@ public class ReserveService {
         eventPlanner.makeReservation(date, menus);
     }
 
-    public void showReservation() {
-        eventPlanner.printReservationPreview();
+    public void showReservationPreview() {
+        eventPlanner.printReservationBasicInformation();
+
+        eventPlanner.printReservationDiscountDetails();
+
+        eventPlanner.printEventBadge();
     }
 }
