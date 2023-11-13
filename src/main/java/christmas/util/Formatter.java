@@ -8,6 +8,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 public class Formatter {
@@ -35,7 +36,7 @@ public class Formatter {
         return priceFormat.format(price);
     }
 
-    public static List<String> formatDiscountEvents(HashMap<DiscountEventImpl, Integer> discountEvents) {
+    public static List<String> formatDiscountEvents(Map<DiscountEventImpl, Integer> discountEvents) {
         return discountEvents.entrySet().stream()
                 .map(entry -> String.format(DISCOUNT_EVENT_FORMAT, entry.getKey().getName(), formatDiscountAmount(entry.getValue())))
                 .collect(Collectors.toList());

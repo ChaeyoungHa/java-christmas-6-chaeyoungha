@@ -30,14 +30,13 @@ public class Reservation {
         return date;
     }
 
-    private HashMap<DiscountEventImpl, Integer> filterDiscountEvents() {
+    private Map<DiscountEventImpl, Integer> filterDiscountEvents() {
         return discountEvents.entrySet().stream()
                 .filter(entry -> entry.getValue() != 0)
                 .collect(Collectors.toMap(
                         Map.Entry::getKey,
                         Map.Entry::getValue,
-                        (existing, replacement) -> existing,
-                        HashMap::new));
+                        (existing, replacement) -> existing));
     }
 
     public int calculatePriceBeforeDiscount() {

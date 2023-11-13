@@ -9,6 +9,7 @@ import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 public class Parser {
@@ -18,6 +19,7 @@ public class Parser {
     public static LocalDate parseDateInput(String dateInput) {
         try {
             int date = Integer.parseInt(dateInput);
+
             return Calendar.generateDate(date);
         } catch (NumberFormatException | DateTimeException e) {
             throw ReservationException.of(ErrorType.INVALID_DATE_INPUT);
@@ -28,15 +30,14 @@ public class Parser {
         try {
             List<String> menus = Arrays.stream(menuInput.split(MENU_INPUT_DELIMITER)).toList();
 
-            return parseEachMenu(menus);
+            return new HashMap<>(parseEachMenu(menus));
         } catch (ArrayIndexOutOfBoundsException | IllegalArgumentException e) {
             throw ReservationException.of(ErrorType.INVALID_MENU_INPUT);
         }
     }
 
-    private static HashMap<Menu, Integer> parseEachMenu(List<String> menus) {
-        return menus
-                .stream()
+    private static Map<Menu, Integer> parseEachMenu(List<String> menus) {
+        return menus.stream()
                 .map(menuItem -> menuItem.split(MENU_ITEM_DELIMITER))
                 .collect(Collectors.toMap(
                         parts -> Menu.of(parts[0]),
@@ -51,8 +52,7 @@ public class Parser {
                         },
                         (existing, replacement) -> {
                             throw new IllegalArgumentException();
-                        },
-                        HashMap::new)
+                        })
                 );
     }
 }
