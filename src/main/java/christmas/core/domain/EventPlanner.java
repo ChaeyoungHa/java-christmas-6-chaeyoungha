@@ -34,7 +34,7 @@ public class EventPlanner {
     }
 
     private int calculateDiscoutForEvent(DiscountEventImpl discountEvent) {
-        if(discountEvent.getTargetDates().contains(reservation.getDate())) {
+        if(discountEvent.containsDateOf(reservation)) {
             return discountEvent.discountAmount(reservation);
         }
 

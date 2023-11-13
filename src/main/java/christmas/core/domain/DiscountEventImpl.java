@@ -64,4 +64,8 @@ public enum DiscountEventImpl implements DiscountEvent {
     public List<LocalDate> getTargetDates() {
         return targetDates;
     }
+
+    public boolean containsDateOf(Reservation reservation) {
+        return targetDates.contains(reservation.getDate());
+    }
 }
