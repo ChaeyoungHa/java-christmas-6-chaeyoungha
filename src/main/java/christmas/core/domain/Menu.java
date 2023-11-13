@@ -34,10 +34,6 @@ public enum Menu {
         return name;
     }
 
-    public MenuCategory getMenuCategory() {
-        return menuCategory;
-    }
-
     public int getPrice() {
         return price;
     }
