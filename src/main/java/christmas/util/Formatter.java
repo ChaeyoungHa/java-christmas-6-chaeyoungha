@@ -12,7 +12,7 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 public class Formatter {
-    private static final String DATE_FORMAT = "MM월 dd일";
+    private static final String DATE_FORMAT = "MM월 d일";
     private static final String MENU_FORMAT = "%s %d개";
     private static final String PRICE_FORMAT = "#,##0원";
     private static final String MINUS = "-";
