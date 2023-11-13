@@ -1,5 +1,7 @@
 package christmas.core.domain;
 
+import christmas.exception.ErrorType;
+import christmas.exception.ReservationException;
 import christmas.util.Calendar;
 import christmas.util.Formatter;
 
@@ -14,6 +16,7 @@ import java.util.stream.Collectors;
 public class Reservation {
     private static final String GIVEAWAY = "샴페인 1개";
     private static final String NO_ITEM = "없음";
+    private static final int MAX_MENU_COUNT = 20;
 
     private final LocalDate date;
     private final HashMap<Menu, Integer> menus;
@@ -22,7 +25,10 @@ public class Reservation {
 
     public Reservation(LocalDate date, HashMap<Menu, Integer> menus) {
         this.date = date;
+
+        validateMenus(menus);
         this.menus = menus;
+
         this.discountEvents = new HashMap<>();
         this.eventBadge = EventBadge.NONE;
     }
@@ -138,7 +144,28 @@ public class Reservation {
         return 0;
     }
 
-    public static final BinaryOperator<Integer> handleDuplicateMenusException = (oldValue, newValue) -> {
+    private static final BinaryOperator<Integer> handleDuplicateMenusException = (oldValue, newValue) -> {
         throw new IllegalArgumentException();
     };
+
+    private void validateMenus(HashMap<Menu, Integer> menus) {
+        if(exceedsMaxMenuCount(menus)|| hasOnlyDrinkMenus(menus)) {
+            throw ReservationException.of(ErrorType.INVALID_MENU_INPUT);
+        }
+    }
+
+    private boolean exceedsMaxMenuCount(HashMap<Menu, Integer> menus) {
+        return calculateAllMenuCount(menus) > MAX_MENU_COUNT;
+    }
+
+    private int calculateAllMenuCount(HashMap<Menu, Integer> menus) {
+        return menus.values().stream()
+                .mapToInt(count -> count)
+                .sum();
+    }
+
+    public boolean hasOnlyDrinkMenus(HashMap<Menu, Integer> menus) {
+        return menus.keySet().stream()
+                .allMatch(menu -> menu.hasCategoryOf(MenuCategory.DRINK));
+    }
 }
