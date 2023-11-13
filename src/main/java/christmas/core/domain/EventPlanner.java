@@ -1,7 +1,6 @@
 package christmas.core.domain;
 
 import christmas.ui.output.OutputView;
-import christmas.util.Formatter;
 
 import java.time.LocalDate;
 import java.util.Arrays;
@@ -10,8 +9,6 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class EventPlanner {
-    private static final String GIVEAWAY = "샴페인 1개";
-    private static final String NO_ITEM = "없음";
 
     private Reservation reservation;
 
@@ -54,80 +51,54 @@ public class EventPlanner {
         printDiscountAmountSum();
         printPriceAfterDiscount();
 
-        giveEventBadge();
         printEventBade();
     }
 
     private void printStartPreview() {
-        String date = Formatter.formatDate(reservation.getDate());
+        String date = reservation.formatDate();
+
         OutputView.printStartReservationPreview(date);
     }
 
     private void printMenus() {
-        List<String> menus = Formatter.formatMenus(reservation.getMenus());
+        List<String> menus = reservation.formatMenus();
+
         OutputView.printMenus(menus);
     }
 
     private void printPriceBeforeDiscount() {
-        String priceBeforeDiscount = Formatter.formatPrice(reservation.calculatePriceBeforeDiscount());
+        String priceBeforeDiscount = reservation.formatPriceBeforeDiscount();
+
         OutputView.printPriceBeforeDiscount(priceBeforeDiscount);
     }
 
     private void printGiveaway() {
-        int discountAmount = reservation.calculateGiveawayDiscount();
+        String giveaway = reservation.formatGiveaway();
 
-        OutputView.printGiveaway(getGiveaway(discountAmount));
-    }
-
-    private String getGiveaway(int discountAmount) {
-        if(discountAmount == 0) {
-            return NO_ITEM;
-        }
-
-        return GIVEAWAY;
+        OutputView.printGiveaway(giveaway);
     }
 
     private void printDiscountEvents() {
-        int discountAmountSum = reservation.calculateDiscountAmountSum();
+        List<String> discountEvents = reservation.formatDiscountEvents();
 
-        OutputView.printDiscountEvents(getDiscountEvents(discountAmountSum));
-    }
-
-    private List<String> getDiscountEvents(int discountAmountSum) {
-        if(discountAmountSum == 0) {
-            return List.of(NO_ITEM);
-        }
-
-        return Formatter.formatDiscountEvents(reservation.getDiscountEventsExceptNoDiscount());
+        OutputView.printDiscountEvents(discountEvents);
     }
 
     private void printDiscountAmountSum() {
-        String discountAmountSum = Formatter.formatDiscountAmount(reservation.calculateDiscountAmountSum());
+        String discountAmountSum = reservation.formatDiscountAmountSum();
 
         OutputView.printDiscountAmountSum(discountAmountSum);
     }
 
     private void printPriceAfterDiscount() {
-        String priceAfterDiscount = Formatter.formatPrice(calculatePriceAfterDiscount());
+        String priceAfterDiscount = reservation.formatPriceAfterDiscount();
 
         OutputView.printPriceAfterDiscount(priceAfterDiscount);
     }
 
-    private int calculatePriceAfterDiscount() {
-        int priceBeforeDiscount = reservation.calculatePriceBeforeDiscount();
-        int discountAmountSum = reservation.calculateDiscountAmountSum();
-        int giveawayDiscount = reservation.calculateGiveawayDiscount();
-
-        return priceBeforeDiscount - discountAmountSum + giveawayDiscount;
-    }
-
-    private void giveEventBadge() {
-        int discountAmountSum = reservation.calculateDiscountAmountSum();
-
-        reservation.setEventBadge(EventBadge.of(discountAmountSum));
-    }
-
     private void printEventBade() {
-        OutputView.printEventBadge(reservation.getEventBadge().getName());
+        String eventBadge = reservation.formatEventBadge();
+
+        OutputView.printEventBadge(eventBadge);
     }
 }

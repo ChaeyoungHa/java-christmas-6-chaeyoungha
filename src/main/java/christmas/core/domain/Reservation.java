@@ -1,11 +1,17 @@
 package christmas.core.domain;
 
+import christmas.util.Formatter;
+
 import java.time.LocalDate;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
 public class Reservation {
+    private static final String GIVEAWAY = "샴페인 1개";
+    private static final String NO_ITEM = "없음";
+
     private LocalDate date;
     private HashMap<Menu, Integer> menus;
     private HashMap<DiscountEventImpl, Integer> discountEvents;
@@ -26,22 +32,11 @@ public class Reservation {
         return menus;
     }
 
-    public HashMap<DiscountEventImpl, Integer> getDiscountEvents() {
-        return discountEvents;
-    }
-    public EventBadge getEventBadge() {
-        return eventBadge;
-    }
-
     public void setDiscountEvents(HashMap<DiscountEventImpl, Integer> discountEvents) {
         this.discountEvents = discountEvents;
     }
 
-    public void setEventBadge(EventBadge eventBadge) {
-        this.eventBadge = eventBadge;
-    }
-
-    public HashMap<DiscountEventImpl, Integer> getDiscountEventsExceptNoDiscount() {
+    private HashMap<DiscountEventImpl, Integer> filterDiscountEvents() {
         return discountEvents.entrySet().stream()
                 .filter(entry -> entry.getValue() != 0)
                 .collect(Collectors.toMap(
@@ -63,5 +58,59 @@ public class Reservation {
 
     public int calculateDiscountAmountSum() {
         return discountEvents.values().stream().mapToInt(value -> value).sum();
+    }
+
+    public String formatDate() {
+        return Formatter.formatDate(date);
+    }
+
+    public List<String> formatMenus() {
+        return Formatter.formatMenus(menus);
+    }
+
+    public String formatPriceBeforeDiscount() {
+        return Formatter.formatPrice(calculatePriceBeforeDiscount());
+    }
+
+    public String formatGiveaway() {
+        if(calculateGiveawayDiscount() == 0) {
+            return NO_ITEM;
+        }
+
+        return GIVEAWAY;
+    }
+
+    public List<String> formatDiscountEvents() {
+        if(calculateDiscountAmountSum() == 0) {
+            return List.of(NO_ITEM);
+        }
+
+        return Formatter.formatDiscountEvents(filterDiscountEvents());
+    }
+
+    public String formatDiscountAmountSum() {
+        return Formatter.formatDiscountAmount(calculateDiscountAmountSum());
+    }
+
+    public String formatPriceAfterDiscount() {
+        return Formatter.formatPrice(calculatePriceAfterDiscount());
+    }
+
+    private int calculatePriceAfterDiscount() {
+        int priceBeforeDiscount = calculatePriceBeforeDiscount();
+        int discountAmountSum = calculateDiscountAmountSum();
+        int giveawayDiscount = calculateGiveawayDiscount();
+
+        return priceBeforeDiscount - discountAmountSum + giveawayDiscount;
+    }
+
+    public String formatEventBadge() {
+        giveEventBadge();
+
+        return eventBadge.getName();
+    }
+
+    private void giveEventBadge() {
+        eventBadge = EventBadge.of(calculateDiscountAmountSum());
     }
 }
