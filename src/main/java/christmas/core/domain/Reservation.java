@@ -131,7 +131,7 @@ public class Reservation {
     }
 
     private int calculateDiscountForEvent(DiscountEventImpl discountEvent) {
-        if(discountEvent.containsDateOf(this)) {
+        if(discountEvent.containsDateOf(this) && calculatePriceBeforeDiscount() > 10000) {
             return discountEvent.calculateDiscountAmount(this);
         }
 
