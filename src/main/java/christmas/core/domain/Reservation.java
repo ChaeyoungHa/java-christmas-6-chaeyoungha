@@ -44,14 +44,12 @@ public class Reservation {
         return Formatter.formatPrice(calculatePriceBeforeDiscount());
     }
 
-    public int calculatePriceBeforeDiscount() {
-        return menus.entrySet().stream()
-                .mapToInt(entry -> entry.getKey().getPrice() * entry.getValue())
-                .sum();
-    }
-
     public void applyAllDiscount() {
         discountEvents = new HashMap<>(calculateAllDiscount());
+    }
+
+    public boolean priceBeforeDiscountExceeds(int amount) {
+        return calculatePriceBeforeDiscount() > amount;
     }
 
     public String formatGiveaway() {
@@ -120,6 +118,12 @@ public class Reservation {
                 .allMatch(menu -> menu.hasCategoryOf(MenuCategory.DRINK));
     }
 
+    private int calculatePriceBeforeDiscount() {
+        return menus.entrySet().stream()
+                .mapToInt(entry -> entry.getKey().getPrice() * entry.getValue())
+                .sum();
+    }
+
     private Map<DiscountEventImpl, Integer> calculateAllDiscount() {
         return Arrays.stream(DiscountEventImpl.values())
                 .collect(Collectors.toMap(
@@ -129,7 +133,7 @@ public class Reservation {
     }
 
     private int calculateDiscountForEvent(DiscountEventImpl discountEvent) {
-        if(discountEvent.containsDateOf(date) && calculatePriceBeforeDiscount() > 10000) {
+        if(discountEvent.containsDateOf(date) && priceBeforeDiscountExceeds(10000)) {
             return discountEvent.calculateDiscountAmount(this);
         }
 

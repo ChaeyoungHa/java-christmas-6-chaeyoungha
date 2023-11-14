@@ -39,7 +39,7 @@ public enum DiscountEventImpl implements DiscountEvent {
     GIVEAWAY_DISCOUNT("증정 이벤트", Calendar.generateAllDates()) {
         @Override
         public int calculateDiscountAmount(Reservation reservation) {
-            if(reservation.calculatePriceBeforeDiscount() >= 120000) {
+            if(reservation.priceBeforeDiscountExceeds(119999)) {
                 return 25000;
             }
 
