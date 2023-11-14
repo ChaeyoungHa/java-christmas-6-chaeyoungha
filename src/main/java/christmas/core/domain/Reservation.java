@@ -109,8 +109,7 @@ public class Reservation {
 
     private int calculateAllMenuCount(HashMap<Menu, Integer> menus) {
         return menus.values().stream()
-                .mapToInt(count -> count)
-                .sum();
+                .reduce(0, Integer::sum);
     }
 
     private boolean hasOnlyDrinkMenus(HashMap<Menu, Integer> menus) {
@@ -145,7 +144,7 @@ public class Reservation {
     }
 
     private int calculateDiscountAmountSum() {
-        return discountEvents.values().stream().mapToInt(value -> value).sum();
+        return discountEvents.values().stream().reduce(0, Integer::sum);
     }
 
     private Map<DiscountEvent, Integer> filterDiscountEvents() {
