@@ -12,13 +12,14 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 public class Reservation {
+
     private static final String GIVEAWAY = "샴페인 1개";
     private static final String NO_ITEM = "없음";
     private static final int MAX_MENU_COUNT = 20;
 
     private final LocalDate date;
     private final HashMap<Menu, Integer> menus;
-    private HashMap<DiscountEventImpl, Integer> discountEvents;
+    private HashMap<DiscountEvent, Integer> discountEvents;
     private EventBadge eventBadge;
 
     public Reservation(LocalDate date, HashMap<Menu, Integer> menus) {
@@ -52,7 +53,7 @@ public class Reservation {
     }
 
     public String formatGiveaway() {
-        if(calculateGiveawayDiscount() == 0) {
+        if (calculateGiveawayDiscount() == 0) {
             return NO_ITEM;
         }
 
@@ -60,7 +61,7 @@ public class Reservation {
     }
 
     public List<String> formatDiscountEvents() {
-        if(calculateDiscountAmountSum() == 0) {
+        if (calculateDiscountAmountSum() == 0) {
             return List.of(NO_ITEM);
         }
 
@@ -97,7 +98,7 @@ public class Reservation {
     }
 
     private void validateMenus(HashMap<Menu, Integer> menus) {
-        if(exceedsMaxMenuCount(menus)|| hasOnlyDrinkMenus(menus)) {
+        if (exceedsMaxMenuCount(menus) || hasOnlyDrinkMenus(menus)) {
             throw ReservationException.of(ErrorType.INVALID_MENU_INPUT);
         }
     }
@@ -123,31 +124,31 @@ public class Reservation {
                 .sum();
     }
 
-    private Map<DiscountEventImpl, Integer> calculateAllDiscount() {
-        return Arrays.stream(DiscountEventImpl.values())
+    private Map<DiscountEvent, Integer> calculateAllDiscount() {
+        return Arrays.stream(DiscountEvent.values())
                 .collect(Collectors.toMap(
                         discountEvent -> discountEvent,
                         this::calculateDiscountForEvent
                 ));
     }
 
-    private int calculateDiscountForEvent(DiscountEventImpl discountEvent) {
-        if(discountEvent.containsDateOf(date) && priceBeforeDiscountExceeds(10000)) {
-            return discountEvent.calculateDiscountAmount(this);
+    private int calculateDiscountForEvent(DiscountEvent discountEvent) {
+        if (discountEvent.containsDateOf(date) && priceBeforeDiscountExceeds(10000)) {
+            return discountEvent.calculator.calculateDiscount(this);
         }
 
         return 0;
     }
 
     private int calculateGiveawayDiscount() {
-        return discountEvents.get(DiscountEventImpl.GIVEAWAY_DISCOUNT);
+        return discountEvents.get(DiscountEvent.GIVEAWAY_DISCOUNT);
     }
 
     private int calculateDiscountAmountSum() {
         return discountEvents.values().stream().mapToInt(value -> value).sum();
     }
 
-    private Map<DiscountEventImpl, Integer> filterDiscountEvents() {
+    private Map<DiscountEvent, Integer> filterDiscountEvents() {
         return discountEvents.entrySet().stream()
                 .filter(entry -> entry.getValue() != 0)
                 .collect(Collectors.toMap(

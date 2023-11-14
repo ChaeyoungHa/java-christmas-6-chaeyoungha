@@ -1,6 +1,6 @@
 package christmas.util;
 
-import christmas.core.domain.DiscountEventImpl;
+import christmas.core.domain.DiscountEvent;
 import christmas.core.domain.Menu;
 import java.text.DecimalFormat;
 import java.time.LocalDate;
@@ -11,6 +11,7 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 public class Formatter {
+
     private static final String DATE_FORMAT = "MM월 d일";
     private static final String MENU_FORMAT = "%s %d개";
     private static final String PRICE_FORMAT = "#,##0원";
@@ -35,14 +36,15 @@ public class Formatter {
         return priceFormat.format(price);
     }
 
-    public static List<String> formatDiscountEvents(Map<DiscountEventImpl, Integer> discountEvents) {
+    public static List<String> formatDiscountEvents(Map<DiscountEvent, Integer> discountEvents) {
         return discountEvents.entrySet().stream()
-                .map(entry -> String.format(DISCOUNT_EVENT_FORMAT, entry.getKey().getName(), formatDiscountAmount(entry.getValue())))
+                .map(entry -> String.format(DISCOUNT_EVENT_FORMAT, entry.getKey().getName(),
+                        formatDiscountAmount(entry.getValue())))
                 .collect(Collectors.toList());
     }
 
     public static String formatDiscountAmount(int discountAmount) {
-        if(discountAmount > 0) {
+        if (discountAmount > 0) {
             return MINUS + formatPrice(discountAmount);
         }
 

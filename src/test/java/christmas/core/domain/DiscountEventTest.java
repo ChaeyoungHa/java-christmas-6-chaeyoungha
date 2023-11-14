@@ -8,7 +8,8 @@ import java.time.LocalDate;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 
-class DiscountEventImplTest {
+class DiscountEventTest {
+
     @ParameterizedTest
     @ValueSource(ints = {1, 11, 21, 25})
     void christmasDdayDiscountContainsDateOf(int day) {
@@ -16,7 +17,7 @@ class DiscountEventImplTest {
         LocalDate testInput = LocalDate.of(DEFAULT_YEAR, DEFAULT_MONTH, day);
 
         // When
-        boolean result = DiscountEventImpl.CHRISTMAS_DDAY_DISCOUNT.containsDateOf(testInput);
+        boolean result = DiscountEvent.CHRISTMAS_DDAY_DISCOUNT.containsDateOf(testInput);
 
         // Then
         assertThat(result).isEqualTo(true);
@@ -29,7 +30,7 @@ class DiscountEventImplTest {
         LocalDate testInput = LocalDate.of(DEFAULT_YEAR, DEFAULT_MONTH, day);
 
         // When
-        boolean result = DiscountEventImpl.CHRISTMAS_DDAY_DISCOUNT.containsDateOf(testInput);
+        boolean result = DiscountEvent.CHRISTMAS_DDAY_DISCOUNT.containsDateOf(testInput);
 
         // Then
         assertThat(result).isEqualTo(false);
@@ -42,7 +43,7 @@ class DiscountEventImplTest {
         LocalDate testInput = LocalDate.of(DEFAULT_YEAR, DEFAULT_MONTH, day);
 
         // When
-        boolean result = DiscountEventImpl.WEEKDAY_DISCOUNT.containsDateOf(testInput);
+        boolean result = DiscountEvent.WEEKDAY_DISCOUNT.containsDateOf(testInput);
 
         // Then
         assertThat(result).isEqualTo(true);
@@ -55,7 +56,7 @@ class DiscountEventImplTest {
         LocalDate testInput = LocalDate.of(DEFAULT_YEAR, DEFAULT_MONTH, day);
 
         // When
-        boolean result = DiscountEventImpl.WEEKDAY_DISCOUNT.containsDateOf(testInput);
+        boolean result = DiscountEvent.WEEKDAY_DISCOUNT.containsDateOf(testInput);
 
         // Then
         assertThat(result).isEqualTo(false);
@@ -68,7 +69,7 @@ class DiscountEventImplTest {
         LocalDate testInput = LocalDate.of(DEFAULT_YEAR, DEFAULT_MONTH, day);
 
         // When
-        boolean result = DiscountEventImpl.WEEKEND_DISCOUNT.containsDateOf(testInput);
+        boolean result = DiscountEvent.WEEKEND_DISCOUNT.containsDateOf(testInput);
 
         // Then
         assertThat(result).isEqualTo(true);
@@ -81,7 +82,7 @@ class DiscountEventImplTest {
         LocalDate testInput = LocalDate.of(DEFAULT_YEAR, DEFAULT_MONTH, day);
 
         // When
-        boolean result = DiscountEventImpl.WEEKEND_DISCOUNT.containsDateOf(testInput);
+        boolean result = DiscountEvent.WEEKEND_DISCOUNT.containsDateOf(testInput);
 
         // Then
         assertThat(result).isEqualTo(false);
@@ -94,7 +95,7 @@ class DiscountEventImplTest {
         LocalDate testInput = LocalDate.of(DEFAULT_YEAR, DEFAULT_MONTH, day);
 
         // When
-        boolean result = DiscountEventImpl.SPECIAL_DISCOUNT.containsDateOf(testInput);
+        boolean result = DiscountEvent.SPECIAL_DISCOUNT.containsDateOf(testInput);
 
         // Then
         assertThat(result).isEqualTo(true);
@@ -107,7 +108,7 @@ class DiscountEventImplTest {
         LocalDate testInput = LocalDate.of(DEFAULT_YEAR, DEFAULT_MONTH, day);
 
         // When
-        boolean result = DiscountEventImpl.SPECIAL_DISCOUNT.containsDateOf(testInput);
+        boolean result = DiscountEvent.SPECIAL_DISCOUNT.containsDateOf(testInput);
 
         // Then
         assertThat(result).isEqualTo(false);
@@ -120,7 +121,7 @@ class DiscountEventImplTest {
         LocalDate testInput = LocalDate.of(DEFAULT_YEAR, DEFAULT_MONTH, day);
 
         // When
-        boolean result = DiscountEventImpl.GIVEAWAY_DISCOUNT.containsDateOf(testInput);
+        boolean result = DiscountEvent.GIVEAWAY_DISCOUNT.containsDateOf(testInput);
 
         // Then
         assertThat(result).isEqualTo(true);
