@@ -90,7 +90,7 @@ public class Reservation {
 
     public Map<Menu, Integer> filterMenusByCategory(MenuCategory category) {
         return menus.entrySet().stream()
-                .filter(entry -> entry.getKey().hasCategoryOf(category))
+                .filter(menuToCount -> menuToCount.getKey().hasCategoryOf(category))
                 .collect(Collectors.toMap(
                         Map.Entry::getKey,
                         Map.Entry::getValue
@@ -119,7 +119,7 @@ public class Reservation {
 
     private int calculatePriceBeforeDiscount() {
         return menus.entrySet().stream()
-                .mapToInt(entry -> entry.getKey().getPrice() * entry.getValue())
+                .mapToInt(menuToCount -> menuToCount.getKey().getPrice() * menuToCount.getValue())
                 .sum();
     }
 
@@ -149,7 +149,7 @@ public class Reservation {
 
     private Map<DiscountEvent, Integer> filterDiscountEvents() {
         return discountEvents.entrySet().stream()
-                .filter(entry -> entry.getValue() != 0)
+                .filter(discountEventToDiscount -> discountEventToDiscount.getValue() != 0)
                 .collect(Collectors.toMap(
                         Map.Entry::getKey,
                         Map.Entry::getValue));

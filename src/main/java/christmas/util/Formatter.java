@@ -26,7 +26,8 @@ public class Formatter {
 
     public static List<String> formatMenus(HashMap<Menu, Integer> menus) {
         return menus.entrySet().stream()
-                .map(entry -> String.format(MENU_FORMAT, entry.getKey().getName(), entry.getValue()))
+                .map(menuToCount -> String.format(MENU_FORMAT, menuToCount.getKey().getName(),
+                        menuToCount.getValue()))
                 .collect(Collectors.toList());
     }
 
@@ -38,8 +39,9 @@ public class Formatter {
 
     public static List<String> formatDiscountEvents(Map<DiscountEvent, Integer> discountEvents) {
         return discountEvents.entrySet().stream()
-                .map(entry -> String.format(DISCOUNT_EVENT_FORMAT, entry.getKey().getName(),
-                        formatDiscountAmount(entry.getValue())))
+                .map(discountEventToDiscount -> String.format(DISCOUNT_EVENT_FORMAT,
+                        discountEventToDiscount.getKey().getName(),
+                        formatDiscountAmount(discountEventToDiscount.getValue())))
                 .collect(Collectors.toList());
     }
 
