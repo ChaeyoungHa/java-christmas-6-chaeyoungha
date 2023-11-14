@@ -11,6 +11,8 @@ import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.Map;
 
+import static christmas.util.Calendar.DEFAULT_MONTH;
+import static christmas.util.Calendar.DEFAULT_YEAR;
 import static java.util.Map.entry;
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -24,7 +26,7 @@ class EventPlannerTest {
     protected final void init() {
         eventPlanner = new EventPlanner();
 
-        LocalDate date = LocalDate.of(2023, 12, 3);
+        LocalDate date = LocalDate.of(DEFAULT_YEAR, DEFAULT_MONTH, 3);
         HashMap<Menu, Integer> menus = new HashMap<>(Map.ofEntries(
                 entry(Menu.T_BONE_STEAK, 1),
                 entry(Menu.BARBECUE_RIBS, 1),

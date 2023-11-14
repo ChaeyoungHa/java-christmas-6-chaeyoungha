@@ -7,8 +7,8 @@ import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 public class Calendar {
-    private static final int DEFAULT_YEAR = 2023;
-    private static final int DEFAULT_MONTH = 12;
+    public static final int DEFAULT_YEAR = 2023;
+    public static final int DEFAULT_MONTH = 12;
     public static final int CHRISTMAS_DAY = 25;
     public static final int FIRST_DAY = 1;
     public static final int LAST_DAY = 31;
