@@ -1,5 +1,11 @@
 package christmas.core.domain;
 
+import christmas.exception.ErrorType;
+import christmas.exception.ReservationException;
+
+import java.util.Arrays;
+import java.util.Objects;
+
 import static christmas.core.domain.MenuCategory.*;
 
 public enum Menu {
@@ -32,6 +38,13 @@ public enum Menu {
 
     public int getPrice() {
         return price;
+    }
+
+    public static Menu of(String name) {
+        return Arrays.stream(Menu.values())
+                .filter(menu -> Objects.equals(menu.name, name))
+                .findFirst()
+                .orElseThrow(() -> new ReservationException(ErrorType.INVALID_MENU_INPUT));
     }
 
     public boolean hasCategoryOf(MenuCategory category) {
