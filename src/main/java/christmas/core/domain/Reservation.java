@@ -4,7 +4,6 @@ import christmas.exception.ErrorType;
 import christmas.exception.ReservationException;
 import christmas.util.Calendar;
 import christmas.util.Formatter;
-
 import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.HashMap;

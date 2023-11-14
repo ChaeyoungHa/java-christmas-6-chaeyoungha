@@ -3,7 +3,6 @@ package christmas.util;
 import christmas.core.domain.Menu;
 import christmas.exception.ErrorType;
 import christmas.exception.ReservationException;
-
 import java.time.DateTimeException;
 import java.time.LocalDate;
 import java.util.Arrays;

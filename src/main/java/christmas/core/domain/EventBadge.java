@@ -1,7 +1,6 @@
 package christmas.core.domain;
 
 import java.util.Arrays;
-import java.util.Objects;
 
 public enum EventBadge {
     SANTA("산타", 20000),

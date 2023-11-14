@@ -1,8 +1,9 @@
 package christmas.core.domain;
 
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import static christmas.util.Calendar.DEFAULT_MONTH;
+import static christmas.util.Calendar.DEFAULT_YEAR;
+import static java.util.Map.entry;
+import static org.assertj.core.api.Assertions.assertThat;
 
 import java.io.ByteArrayOutputStream;
 import java.io.OutputStream;
@@ -10,11 +11,9 @@ import java.io.PrintStream;
 import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.Map;
-
-import static christmas.util.Calendar.DEFAULT_MONTH;
-import static christmas.util.Calendar.DEFAULT_YEAR;
-import static java.util.Map.entry;
-import static org.assertj.core.api.Assertions.assertThat;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 class EventPlannerTest {
     private EventPlanner eventPlanner;

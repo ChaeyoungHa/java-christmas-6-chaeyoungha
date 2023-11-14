@@ -1,7 +1,6 @@
 package christmas.core.domain;
 
 import christmas.util.Calendar;
-
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.util.List;
@@ -14,7 +13,9 @@ public enum DiscountEventImpl implements DiscountEvent {
         }
     },
     WEEKDAY_DISCOUNT("평일 할인",
-            Calendar.generateAllDatesWithDayOfWeek(List.of(DayOfWeek.SUNDAY, DayOfWeek.MONDAY, DayOfWeek.TUESDAY, DayOfWeek.WEDNESDAY, DayOfWeek.THURSDAY))) {
+            Calendar.generateAllDatesWithDayOfWeek(
+                    List.of(DayOfWeek.SUNDAY, DayOfWeek.MONDAY, DayOfWeek.TUESDAY, DayOfWeek.WEDNESDAY,
+                            DayOfWeek.THURSDAY))) {
         @Override
         public int calculateDiscountAmount(Reservation reservation) {
             return reservation.filterMenusByCategory(MenuCategory.DESSERT).values().stream()
@@ -39,7 +40,7 @@ public enum DiscountEventImpl implements DiscountEvent {
     GIVEAWAY_DISCOUNT("증정 이벤트", Calendar.generateAllDates()) {
         @Override
         public int calculateDiscountAmount(Reservation reservation) {
-            if(reservation.priceBeforeDiscountExceeds(119999)) {
+            if (reservation.priceBeforeDiscountExceeds(119999)) {
                 return 25000;
             }
 

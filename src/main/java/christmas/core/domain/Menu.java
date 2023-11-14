@@ -1,12 +1,14 @@
 package christmas.core.domain;
 
+import static christmas.core.domain.MenuCategory.APPETIZER;
+import static christmas.core.domain.MenuCategory.DESSERT;
+import static christmas.core.domain.MenuCategory.DRINK;
+import static christmas.core.domain.MenuCategory.MAIN;
+
 import christmas.exception.ErrorType;
 import christmas.exception.ReservationException;
-
 import java.util.Arrays;
 import java.util.Objects;
-
-import static christmas.core.domain.MenuCategory.*;
 
 public enum Menu {
     BUTTON_MUSHROOM_SOUP("양송이수프", APPETIZER, 6000),

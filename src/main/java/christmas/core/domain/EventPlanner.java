@@ -1,7 +1,6 @@
 package christmas.core.domain;
 
 import christmas.ui.output.OutputView;
-
 import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.List;
