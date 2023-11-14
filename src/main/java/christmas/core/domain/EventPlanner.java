@@ -7,13 +7,20 @@ import java.util.HashMap;
 import java.util.List;
 
 public class EventPlanner {
-
     private Reservation reservation;
 
     public EventPlanner() { }
 
     public void makeReservation(LocalDate date, HashMap<Menu, Integer> menus) {
         this.reservation = new Reservation(date, menus);
+    }
+
+    public void printReservationBasicInformation() {
+        printStartPreview();
+
+        printMenus();
+
+        printPriceBeforeDiscount();
     }
 
     public void printReservationDiscountDetails() {
@@ -25,12 +32,12 @@ public class EventPlanner {
         printPriceAfterDiscount();
     }
 
-    public void printReservationBasicInformation() {
-        printStartPreview();
+    public void printEventBadge() {
+        reservation.giveEventBadge();
 
-        printMenus();
+        String eventBadge = reservation.getEventBadgeName();
 
-        printPriceBeforeDiscount();
+        OutputView.printEventBadge(eventBadge);
     }
 
     private void printStartPreview() {
@@ -73,13 +80,5 @@ public class EventPlanner {
         String priceAfterDiscount = reservation.formatPriceAfterDiscount();
 
         OutputView.printPriceAfterDiscount(priceAfterDiscount);
-    }
-
-    public void printEventBadge() {
-        reservation.giveEventBadge();
-
-        String eventBadge = reservation.getEventBadgeName();
-
-        OutputView.printEventBadge(eventBadge);
     }
 }
