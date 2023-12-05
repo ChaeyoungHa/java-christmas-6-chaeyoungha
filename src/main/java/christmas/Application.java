@@ -1,7 +1,14 @@
 package christmas;
 
+import christmas.core.controller.ReserveController;
+import christmas.core.service.ReserveService;
+
 public class Application {
     public static void main(String[] args) {
-        // TODO: 프로그램 구현
+        ReserveService reserveService = new ReserveService();
+
+        ReserveController reserveController = new ReserveController(reserveService);
+
+        reserveController.run();
     }
 }
