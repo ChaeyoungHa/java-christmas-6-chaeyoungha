@@ -4,6 +4,7 @@ import christmas.exception.ErrorType;
 import christmas.exception.ReservationException;
 import christmas.util.Calendar;
 import christmas.util.Formatter;
+
 import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -29,7 +30,7 @@ public class Reservation {
         this.menus = menus;
 
         this.discountEvents = new HashMap<>();
-        this.eventBadge = EventBadge.NONE;
+        this.eventBadge = null;
     }
 
     public String formatDate() {
@@ -80,7 +81,11 @@ public class Reservation {
         eventBadge = EventBadge.of(calculateDiscountAmountSum());
     }
 
-    public String getEventBadgeName() {
+    public String formatEventBadgeName() {
+        if (eventBadge == null) {
+            return NO_ITEM;
+        }
+
         return eventBadge.getName();
     }
 

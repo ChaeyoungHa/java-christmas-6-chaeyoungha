@@ -1,9 +1,9 @@
 package christmas.core.domain;
 
-import static org.assertj.core.api.Assertions.assertThat;
-
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
+
+import static org.assertj.core.api.Assertions.assertThat;
 
 class EventBadgeTest {
     @ParameterizedTest
@@ -13,7 +13,7 @@ class EventBadgeTest {
         EventBadge result = EventBadge.of(discountAmountSum);
 
         // Then
-        assertThat(result).isEqualTo(EventBadge.NONE);
+        assertThat(result).isEqualTo(null);
     }
 
     @ParameterizedTest

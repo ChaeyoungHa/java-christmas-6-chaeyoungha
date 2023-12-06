@@ -34,7 +34,7 @@ public class EventPlanner {
     public void printEventBadge() {
         reservation.giveEventBadge();
 
-        String eventBadge = reservation.getEventBadgeName();
+        String eventBadge = reservation.formatEventBadgeName();
 
         OutputView.printEventBadge(eventBadge);
     }
