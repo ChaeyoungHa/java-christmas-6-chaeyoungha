@@ -1,13 +1,8 @@
 package christmas.core.domain;
 
-public class WeekendDiscountAmount implements DiscountAmount {
+public class WeekendDiscountAmount extends DiscountAmountOfThisYear {
 
-    private static final int DISCOUNT_WEIGHT = 2023;
-
-    @Override
-    public int calculate(Reservation reservation) {
-        return reservation.filterMenusByCategory(MenuCategory.MAIN).values().stream()
-                .mapToInt(count -> count * DISCOUNT_WEIGHT)
-                .sum();
+    public WeekendDiscountAmount() {
+        super(MenuCategory.MAIN);
     }
 }
